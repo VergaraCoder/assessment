@@ -6,12 +6,13 @@ import { MedicalAppointment } from './entities/medical-appointment.entity';
 import { Repository } from 'typeorm';
 import { ManageError } from 'src/common/errors/custom/custom.error';
 
+
 @Injectable()
 export class MedicalAppointmentsService {
 
   constructor(
     @InjectRepository(MedicalAppointment)
-    private medicalAppointmentRepository: Repository<MedicalAppointment>
+    private medicalAppointmentRepository: Repository<MedicalAppointment>,
   ){}
 
   async create(createMedicalAppointmentDto: CreateMedicalAppointmentDto) {

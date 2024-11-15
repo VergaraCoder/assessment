@@ -24,8 +24,8 @@ export class CreateMedicalAppointmentDto {
     affair:string;
 
     @ApiProperty({
-        example:"2024-10-13T20:03",
-        description:"La fecha debe estar en el mormato ISO AA-MM-DDTHH:MM "
+        example:"2024-10-13T20:03:00",
+        description:"La fecha debe estar en el mormato ISO AA-MM-DDTHH:MM:ML "
     })
     @IsNotEmpty()
     @Matches(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/)

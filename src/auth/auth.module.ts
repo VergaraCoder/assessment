@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { LocalStrategy } from './jwt/strategy/local.strategy';
 import { LocalGuard } from './jwt/guards/local.guard';
 import { JwtGuard } from './jwt/guards/jwt.guard';
@@ -26,10 +26,15 @@ import { UserModule } from 'src/user/user.module';
     LocalGuard,
     JwtGuard,
     AuthService,
-    RoleGuard
-  ],
+    RoleGuard,
+    AuthService,
+    JwtService
+    ],
   exports:[
     JwtGuard,
+    LocalGuard,
+    AuthService,
+    JwtService
   ]
 })
 export class AuthModule {}

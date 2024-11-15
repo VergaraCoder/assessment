@@ -49,7 +49,7 @@ export class JwtGuard implements CanActivate{
             else if(err instanceof jwt.JsonWebTokenError || jwt.NotBeforeError){
                 throw new ManageError({
                     type:"UNAUTHORIZED",
-                    message:"THE TOKEN IS NOT VALID"
+                    message:"THE TOKEN IS NOT VALID OR MUST BE PROVIDER"
                 });
             }
             throw ManageError.signedError(err.message);
