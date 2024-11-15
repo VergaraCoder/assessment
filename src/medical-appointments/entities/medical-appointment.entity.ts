@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/user/entities/user.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("appointments")
 export class MedicalAppointment {
@@ -16,4 +17,10 @@ export class MedicalAppointment {
 
     @Column()
     date:Date;
+
+    @ManyToOne(()=>User,user=>user.appointmentsPatient)
+    userPatient:User;
+
+    @ManyToOne(()=>User,user=>user.appointmentsDcotor)
+    userDoctor:User;
 }

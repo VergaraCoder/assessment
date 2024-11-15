@@ -7,9 +7,11 @@ import { LocalStrategy } from './jwt/strategy/local.strategy';
 import { LocalGuard } from './jwt/guards/local.guard';
 import { JwtGuard } from './jwt/guards/jwt.guard';
 import { RoleGuard } from './jwt/guards/role.guard';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports:[
+    UserModule,
     JwtModule.registerAsync({
       imports:[ConfigModule],
       inject:[ConfigService],

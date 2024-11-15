@@ -1,7 +1,8 @@
 import { Role } from "src/role/entities/role.entity";
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { MedicalAppointment } from "src/medical-appointments/entities/medical-appointment.entity";
 @Entity("users")
+@Unique(["email"])
 export class User {
     @PrimaryGeneratedColumn()
     id:number;
@@ -29,4 +30,10 @@ export class User {
 
     @ManyToOne(()=>Role,role=>role.user,{eager:true})
     role:Role;
+
+    @OneToMany(()=>MedicalAppointment,appointment=>appointment.userPatient)
+    appointmentsPatient:MedicalAppointment[];
+
+    @OneToMany(()=>MedicalAppointment,appointment=>appointment.userDoctor)
+    appointmentsDcotor:MedicalAppointment[];
 }

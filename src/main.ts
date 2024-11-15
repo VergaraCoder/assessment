@@ -5,19 +5,23 @@ import { FilterError } from './common/errors/filter/exception.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { DataSource } from 'typeorm';
 import { SeederRole } from './common/db/seeders/seeder.role';
-
+import * as cookie from 'cookie-parser';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new FilterError());
-
+  const configJwt = app.get(ConfigService);
   const dataSource= app.get(DataSource);
   const seederRole= new SeederRole();
 
   await seederRole.run(dataSource);
 
-  
+  app.use(cookie(configJwt.get('SIGNED_COOKIE')));
+
+
   const config = new DocumentBuilder()
     .setTitle('PONER TITULO')
     .setDescription('PONER DESCRIPTION')

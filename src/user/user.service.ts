@@ -31,7 +31,13 @@ export class UserService {
 
       return dataUser;
     }catch(err:any){
-      throw err;
+      if(err.driverError && err.driverError.code=="ER_DUP_ENTRY"){
+        throw new ManageError({
+          type:"CONFLICT",
+          message:"THIS EMAIL ALREADY EXISTS"
+        });
+      }
+      throw ManageError.signedError(err.message);
     }
   }
 

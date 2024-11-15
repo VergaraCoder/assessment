@@ -3,10 +3,12 @@ import { MedicalAppointmentsService } from './medical-appointments.service';
 import { MedicalAppointmentsController } from './medical-appointments.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MedicalAppointment } from './entities/medical-appointment.entity';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([MedicalAppointment])
+    TypeOrmModule.forFeature([MedicalAppointment]),
+    UserModule
   ],
   controllers: [MedicalAppointmentsController],
   providers: [MedicalAppointmentsService],

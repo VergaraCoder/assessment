@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { MedicalAppointmentsModule } from './medical-appointments/medical-appointments.module';
 
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -21,7 +22,7 @@ import { MedicalAppointmentsModule } from './medical-appointments/medical-appoin
     RoleModule,
     UserModule,
     AuthModule,
-    MedicalAppointmentsModule
+    MedicalAppointmentsModule,
   ],
   controllers: [],
   providers: [],

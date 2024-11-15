@@ -20,8 +20,8 @@ export class CreateUserDto {
 
     @ApiProperty(
     {
-        example:"admin",
-        description:"los posibles valores para esta propiedad son admin o client"
+        example:"patient",
+        description:"los posibles valores para esta propiedad son admin o patient o doctor"
     })
     @IsNotEmpty()
     @IsString()
