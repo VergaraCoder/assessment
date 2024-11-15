@@ -18,6 +18,6 @@ export class User {
     @Column()
     roleId:number;
 
-    @ManyToOne(()=>Role,role=>role)
-    role:Role[];
+    @ManyToOne(()=>Role,role=>role.user,{eager:true})
+    role:Role;
 }

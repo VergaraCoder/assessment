@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { RoleService } from 'src/role/role.service';
 import { Role } from 'src/role/entities/role.entity';
 import { ManageError } from 'src/common/errors/custom/custom.error';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -93,4 +94,22 @@ export class UserService {
       throw ManageError.signedError(err.message);
     }
   }
+
+
+  async verifyUserByEmailAndPassword(email:string,password:string){
+    try{
+      const findUser=await this.userRepository.findOneBy({email:email});
+      
+      if(!findUser || (!await bcrypt.compare(password,findUser.password))){
+        throw new ManageError({
+          type:"NOT_FOUND",
+          message:"THIS USER NOT EXIST"
+        });
+      }
+      return findUser;
+    }catch(err:any){
+      throw ManageError.signedError(err.message);
+    }
+  }
+
 }
