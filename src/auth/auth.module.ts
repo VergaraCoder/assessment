@@ -13,12 +13,12 @@ import { UserModule } from 'src/user/user.module';
   imports:[
     UserModule,
     JwtModule.registerAsync({
-      imports:[ConfigModule],
-      inject:[ConfigService],
-      useFactory:async(configService:ConfigService)=>({
-        secret:configService.get<string>("JWT_SECRET")
-      })
-    })
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async(configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+      }),
+    }),
   ],
   controllers: [AuthController],
   providers: [
@@ -28,13 +28,12 @@ import { UserModule } from 'src/user/user.module';
     AuthService,
     RoleGuard,
     AuthService,
-    JwtService
     ],
   exports:[
     JwtGuard,
     LocalGuard,
     AuthService,
-    JwtService
+    JwtModule
   ]
 })
 export class AuthModule {}

@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 
 
 @Injectable()
-export class FilterData implements CanActivate{
+export class FilterDate implements CanActivate{
     
     constructor(
         @InjectRepository(MedicalAppointment)
@@ -22,14 +22,26 @@ export class FilterData implements CanActivate{
             const request:Request=context.switchToHttp().getRequest();
 
             const data:CreateMedicalAppointmentDto | any=request.body;
-            console.log(data);
             
-            const dataBuilder:any=await builder.where(
-                `appointment.date BETWEEN :newAppoinment AND appointment.doctorId = :doctor`,{newAppoinment:data.date, doctor:data.doctorId})
+            console.log("ENTRMAOS A VERIFICAR FECHA");
+            console.log(data.doctorId);
+            console.log(data.date);
+            const date2:Date = new Date(data.date)
+            
+            const startDate = new Date(date2.getTime() - 15 * 60 * 1000);
+
+            const endDate = new Date(date2.getTime() + 15 * 60 * 1000); 
+            
+                const dataBuilder: any = await builder
+                .where(
+                  `appointment.date BETWEEN :startDate AND :endDate AND appointment.doctorId = :doctorId`,
+                  {
+                    startDate: startDate,  
+                    endDate: endDate,      
+                    doctorId: data.doctorId, 
+                  }
+                )
                 .getMany();
-                
-            console.log("ENTER");
-            console.log(dataBuilder);
             
         
             if(dataBuilder.length > 0){
@@ -38,9 +50,12 @@ export class FilterData implements CanActivate{
                     message:"THE DOCTOR ALREADY HAS AN APPOINTMENT AT THAT TIME"
                 });
             }
-            console.log("PASS");
+
             const dateAppointment=new Date(data.date);
+
             request["date"]=dateAppointment;
+            console.log("PASS");
+
             return true;
         }catch(err:any){
             console.log(err);

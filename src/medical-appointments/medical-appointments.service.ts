@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MedicalAppointment } from './entities/medical-appointment.entity';
 import { Repository } from 'typeorm';
 import { ManageError } from 'src/common/errors/custom/custom.error';
+import { UserService } from 'src/user/user.service';
 
 
 @Injectable()
@@ -13,10 +14,11 @@ export class MedicalAppointmentsService {
   constructor(
     @InjectRepository(MedicalAppointment)
     private medicalAppointmentRepository: Repository<MedicalAppointment>,
+    private userService:UserService,
   ){}
 
   async create(createMedicalAppointmentDto: CreateMedicalAppointmentDto) {
-    try{
+    try{ 
       const medical:MedicalAppointment= this.medicalAppointmentRepository.create(createMedicalAppointmentDto);
 
       await this.medicalAppointmentRepository.save(medical);

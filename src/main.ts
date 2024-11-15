@@ -21,6 +21,10 @@ async function bootstrap() {
 
   app.use(cookie(configJwt.get('SIGNED_COOKIE')));
 
+  app.enableCors({
+    origin: '*', 
+    credentials: true, 
+  });
 
   const config = new DocumentBuilder()
     .setTitle('PONER TITULO')

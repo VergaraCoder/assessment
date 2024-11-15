@@ -21,13 +21,17 @@ export class JwtGuard implements CanActivate{
         const response:Response=context.switchToHttp().getResponse();
 
         const signedCookies=request.signedCookies;
+
+        
         try{
-            if(signedCookies || !signedCookies["acces_token"] || signedCookies["refresh_token"]){
+            if(!signedCookies || !signedCookies["acces_token"] || !signedCookies["refresh_token"]){
+                
                 throw new ManageError({
                     type:"UNAUTHORIZED",
                     message:"THE TOKEN MUST BE PROVIDER"
                 });
             }   
+          
             await this.jwtService.verify(signedCookies["acces_token"]);
             request["user"]=await this.jwtService.decode(signedCookies["acces_token"]);
 

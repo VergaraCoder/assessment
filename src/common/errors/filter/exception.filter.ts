@@ -13,8 +13,7 @@ export class FilterError implements ExceptionFilter{
         const ifExist2=exception.response;
         let message;
         let status;        
-        
-
+    
         if(ifExist2 && ifExist2.message){
             message=ifExist2.message;
             status=ifExist2.statusCode ? ifExist2.statusCode : 400;

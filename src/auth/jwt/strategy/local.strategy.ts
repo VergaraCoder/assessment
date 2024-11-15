@@ -17,14 +17,17 @@ export class LocalStrategy extends PassportStrategy(Strategy){
 
     async validate(email:string,password:string){
         try{
+            console.log("eNTER TO REVIEW DATA");
+            
             const verifyUser=await this.UserService.verifyUserByEmailAndPassword(email,password);
             const payloadToken={
                 userId:verifyUser.id,
                 email:verifyUser.email,
                 role:verifyUser.role.name
-            }
+            }         
             return payloadToken;
         }catch(err:any){
+            console.log(err);
             throw err;
         }
     }

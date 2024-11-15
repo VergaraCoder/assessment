@@ -22,7 +22,10 @@ export class UserService {
     try{
       const role:Role=await this.roleService.findOneByName(createUserDto.roleName);
 
+      const hashedPassword=bcrypt.hashSync(createUserDto.password,10);
       delete createUserDto.roleName;
+
+      createUserDto.password=hashedPassword;
 
       const dataUser=this.userRepository.create
       ({roleId:role.id,...createUserDto});
@@ -58,6 +61,10 @@ export class UserService {
 
   async findOne(id: number) {
     try{
+      console.log("the id is");
+      console.log(id);
+      
+      
       const user:User | null= await this.userRepository.findOneBy({id});
       if(!user){
         throw new ManageError({
@@ -102,11 +109,30 @@ export class UserService {
   }
 
 
+  async findUserByRole(role:string){
+    try{
+      const query= this.userRepository.createQueryBuilder("users");
+      const data=await query.innerJoin("roles", "users")
+                      .where("roles.name=:role",{role:role})
+                      .andWhere("users.roleId = roles.id")
+                      .getMany();
+      if(data.length){
+        throw new ManageError({
+          type:"NOT_FOUND",
+          message:"THERE ARE NO USERS WITH THIS ROLE"
+        })
+      }
+      return data;
+    }catch(err:any){
+      throw ManageError.signedError(err.message);
+    }
+  }
+
   async verifyUserByEmailAndPassword(email:string,password:string){
     try{
       const findUser=await this.userRepository.findOneBy({email:email});
-      
-      if(!findUser || (!await bcrypt.compare(password,findUser.password))){
+    
+      if(!findUser || !await bcrypt.compare(password,findUser.password)){
         throw new ManageError({
           type:"NOT_FOUND",
           message:"THIS USER NOT EXIST"
@@ -114,6 +140,7 @@ export class UserService {
       }
       return findUser;
     }catch(err:any){
+  
       throw ManageError.signedError(err.message);
     }
   }

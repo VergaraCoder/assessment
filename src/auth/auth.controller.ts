@@ -1,6 +1,8 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards , Res} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalGuard } from './jwt/guards/local.guard';
+import { CreationTokenDTO } from './dto/createToken';
+import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -8,7 +10,19 @@ export class AuthController {
   }
   @Post("login")
   @UseGuards(LocalGuard)
-  async createToken(@Body() data:any){
-    return await this.authService.creationOfToken(data);
+  async createToken(@Req() request:Request, @Res()response:Response) { 
+    const data:any=request["user"];
+    const tokens=await this.authService.creationOfToken(data);
+    response.cookie("acces_token",tokens.acces_token,{
+      signed:true,
+      httpOnly:true
+    });
+
+    response.cookie("refresh_token",tokens.refresh_token,{
+      signed:true,
+      httpOnly:true
+    });
+
+    response.status(200).json("Tokens creates");
   }
 }
