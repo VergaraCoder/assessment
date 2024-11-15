@@ -1,0 +1,2 @@
+no se pueden hacer 2 citas para el mismo medico al mismo tiempo
+

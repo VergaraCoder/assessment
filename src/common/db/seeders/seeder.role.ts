@@ -13,7 +13,8 @@ export class SeederRole implements Seeder{
         const repoRole=dataSource.getRepository(Role);
         const dataRole:roles[]=[
             {name:"admin"},
-            {name:"cient"},
+            {name:"patient"},
+            {name:"doctor"},
         ];
         for(const x of dataRole){
             const query:Role | null=await repoRole.findOneBy({name:x.name});

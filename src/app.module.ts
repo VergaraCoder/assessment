@@ -5,6 +5,7 @@ import { Credentials } from './common/db/db.config';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { MedicalAppointmentsModule } from './medical-appointments/medical-appointments.module';
 
 
 @Module({
@@ -19,7 +20,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     RoleModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    MedicalAppointmentsModule
   ],
   controllers: [],
   providers: [],

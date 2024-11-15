@@ -18,6 +18,15 @@ export class User {
     @Column()
     roleId:number;
 
+    @Column()
+    idNumber:string;
+
+    @Column()
+    age:number;
+
+    @Column()
+    telephone:string;
+
     @ManyToOne(()=>Role,role=>role.user,{eager:true})
     role:Role;
 }
