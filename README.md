@@ -2,7 +2,7 @@
 
 
 **Install dependencies**
--npm install or npm i 
+- npm install or npm i 
 
 **Start project**
 - npm run start
