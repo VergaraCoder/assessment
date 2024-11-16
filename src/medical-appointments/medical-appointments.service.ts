@@ -19,6 +19,10 @@ export class MedicalAppointmentsService {
 
   async create(createMedicalAppointmentDto: CreateMedicalAppointmentDto) {
     try{ 
+
+      createMedicalAppointmentDto.reason= createMedicalAppointmentDto.reason.toLocaleLowerCase();
+      createMedicalAppointmentDto.speciality= createMedicalAppointmentDto.speciality.toLocaleLowerCase();
+
       const medical:MedicalAppointment= this.medicalAppointmentRepository.create(createMedicalAppointmentDto);
 
       await this.medicalAppointmentRepository.save(medical);

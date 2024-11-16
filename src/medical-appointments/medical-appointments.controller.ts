@@ -51,14 +51,14 @@ export class MedicalAppointmentsController {
     example:"urologo"
   })
   async findAll(
-    @Query() date:Date,
-    @Query() reason:string,
-    @Query() speciality:string,
+    @Query("date") date:Date,
+    @Query("reason") reason:string,
+    @Query("speciality") speciality:string,
   ) {
-    const data={date,reason,speciality};   
-
-    if(data.date && data.reason){
-      return await this.filterResults.returnAppointmentByDate(data.date);
+    if(date || reason || speciality){
+      return await this.filterResults.router({
+        date:date,reason:reason,speciality:speciality
+      });
     }
     return await this.medicalAppointmentsService.findAll();
   }
@@ -69,7 +69,7 @@ export class MedicalAppointmentsController {
     return await this.medicalAppointmentsService.findOne(+id);
   }
 
-  
+
   @Patch(':id')
   @Auth("admin","patient","doctor")
   async update(@Param('id') id: string, @Body() updateMedicalAppointmentDto: UpdateMedicalAppointmentDto) {

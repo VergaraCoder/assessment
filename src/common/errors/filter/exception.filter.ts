@@ -12,7 +12,8 @@ export class FilterError implements ExceptionFilter{
         const ifExist:string[]=exception.message.split(" :: ");
         const ifExist2=exception.response;
         let message;
-        let status;        
+        let status;   
+            
     
         if(ifExist2 && ifExist2.message){
             message=ifExist2.message;
