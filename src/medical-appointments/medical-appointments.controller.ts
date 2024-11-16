@@ -7,7 +7,7 @@ import { FilterDate } from './guard/filterData.guard';
 import { FilterDoctor } from './guard/filterDoctor.guard';
 import { FilterPatient } from './guard/filterPatient.guard';
 import { returnResult } from './filterResult/returnFilterdata';
-import { ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 
 @Controller('medical-appointments')
 export class MedicalAppointmentsController {
@@ -18,6 +18,7 @@ export class MedicalAppointmentsController {
   ) {}
 
   @Post()
+  @ApiBearerAuth() 
   @UseGuards(FilterDate,FilterDoctor,FilterPatient)
   @Auth("admin","patient","doctor")
   async create(@Body() createMedicalAppointmentDto: CreateMedicalAppointmentDto, @Req() request:Request) {
@@ -28,6 +29,7 @@ export class MedicalAppointmentsController {
   }
 
   @Get()
+  @ApiBearerAuth() 
   @Auth("admin","doctor")
   @ApiQuery({ 
     name: 'date', 
@@ -64,6 +66,7 @@ export class MedicalAppointmentsController {
   }
 
   @Get(':id')
+  @ApiBearerAuth() 
   @Auth("admin","patient","doctor")
   async findOne(@Param('id') id: string) {
     return await this.medicalAppointmentsService.findOne(+id);
@@ -71,12 +74,14 @@ export class MedicalAppointmentsController {
 
 
   @Patch(':id')
+  @ApiBearerAuth() 
   @Auth("admin","patient","doctor")
   async update(@Param('id') id: string, @Body() updateMedicalAppointmentDto: UpdateMedicalAppointmentDto) {
     return await this.medicalAppointmentsService.update(+id, updateMedicalAppointmentDto);
   }
 
   @Delete(':id')
+  @ApiBearerAuth() 
   @Auth("admin","doctor")
   async remove(@Param('id') id: string) {
     return await this.medicalAppointmentsService.remove(+id);
