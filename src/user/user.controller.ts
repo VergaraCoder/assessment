@@ -14,7 +14,7 @@ export class UserController {
   }
 
   @Get()
-  //@Auth("admin","doctor")
+  @Auth("admin","doctor")
   findAll() {
     return this.userService.findAll();
   }

@@ -27,8 +27,8 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('PONER TITULO')
-    .setDescription('PONER DESCRIPTION')
+    .setTitle('MEDICAL APPOINTMENTS')
+    .setDescription('MEDICAL APPOINTMENTS')
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
