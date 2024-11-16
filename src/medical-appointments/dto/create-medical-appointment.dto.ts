@@ -18,10 +18,19 @@ export class CreateMedicalAppointmentDto {
 
     @ApiProperty({
         example:"Dolor de cabeza",
+        description:"todo es mayuscula preferiblemente"
     })
     @IsNotEmpty()
     @IsString()
-    affair:string;
+    reason:string;
+
+    @ApiProperty({
+        example:"Dolor de cabeza",
+        description:"todo es mayuscula preferiblemente"
+    })
+    @IsNotEmpty()
+    @IsString()
+    speciality:string;
 
     @ApiProperty({
         example:"2024-10-13T20:03:00",

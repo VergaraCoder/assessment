@@ -13,14 +13,17 @@ export class MedicalAppointment {
     doctorId:number;
 
     @Column()
-    affair:string;
+    reason:string;
 
     @Column()
     date:Date;
 
-    @ManyToOne(()=>User,user=>user.appointmentsPatient)
+    @Column()
+    speciality:string;
+
+    @ManyToOne(()=>User,user=>user.appointmentsPatient,{eager:true})
     userPatient:User;
 
-    @ManyToOne(()=>User,user=>user.appointmentsDcotor)
+    @ManyToOne(()=>User,user=>user.appointmentsDcotor,{eager:true})
     userDoctor:User;
 }

@@ -23,7 +23,7 @@ export class FilterDate implements CanActivate{
 
             const data:CreateMedicalAppointmentDto | any=request.body;
             
-            console.log("ENTRMAOS A VERIFICAR FECHA");
+            console.log("ENTER TO VERIFY DATE");
             console.log(data.doctorId);
             console.log(data.date);
             const date2:Date = new Date(data.date)
@@ -31,7 +31,7 @@ export class FilterDate implements CanActivate{
             const startDate = new Date(date2.getTime() - 15 * 60 * 1000);
 
             const endDate = new Date(date2.getTime() + 15 * 60 * 1000); 
-            
+
                 const dataBuilder: any = await builder
                 .where(
                   `appointment.date BETWEEN :startDate AND :endDate AND appointment.doctorId = :doctorId`,

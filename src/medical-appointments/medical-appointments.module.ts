@@ -9,6 +9,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
 import { FilterDoctor } from './guard/filterDoctor.guard';
 import { FilterPatient } from './guard/filterPatient.guard';
+import { returnResult } from './filterResult/returnFilterdata';
 
 @Module({
   imports:[
@@ -21,7 +22,8 @@ import { FilterPatient } from './guard/filterPatient.guard';
     MedicalAppointmentsService,
     FilterDate,
     FilterDoctor,
-    FilterPatient
+    FilterPatient,
+    returnResult
   ],
 })
 export class MedicalAppointmentsModule {}
