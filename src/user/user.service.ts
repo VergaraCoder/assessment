@@ -135,7 +135,7 @@ export class UserService {
       if(!findUser || !await bcrypt.compare(password,findUser.password)){
         throw new ManageError({
           type:"NOT_FOUND",
-          message:"THIS USER NOT EXIST"
+          message:"INCORRECT CREDENTIALS"
         });
       }
       return findUser;
